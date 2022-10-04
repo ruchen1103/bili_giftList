@@ -1,3 +1,6 @@
+目前只能在本地开发环境使用，打包后代理失效了，而b站的接口需要代理到https://api.live.bilibili.com。
+
+用于查询导出直播流水的礼物列表
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
