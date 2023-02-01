@@ -1,5 +1,5 @@
 import './App.css';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import { DatePicker, message, Select, Input, Button, Table } from 'antd';
 import React from 'react';
 import axios from 'axios';
@@ -12,13 +12,14 @@ axios.defaults.withCredentials = true;
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
+const today=new Date();
 class App extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			giftID: "",
-			startTime: "",
-			endTime: "",
+			startTime: today.toLocaleDateString(),
+			endTime: today.toLocaleDateString(),
 			giftTypeList: [],
 			cookie: "",
 			inputValue: "",
@@ -68,9 +69,11 @@ class App extends React.Component {
 				}
 			} else {
 				message.warning(response.data.message)
+				this.setState({ loading: false })
 			}
 		}).catch(function (error) {
 			message.warning(error.message)
+			this.setState({ loading: false })
 		});
 	}
 	getGiftTypeList = async () => {
@@ -179,7 +182,7 @@ class App extends React.Component {
 						}
 					</Select>
 					<label>查询时间：</label>
-					<RangePicker format="YYYY-MM-DD" onChange={this.timeOnChange} />
+					<RangePicker defaultValue={[moment(today.toLocaleDateString(), 'YYYY/MM/DD'),moment(today.toLocaleDateString(), 'YYYY/MM/DD')]} format="YYYY-MM-DD" onChange={this.timeOnChange} />
 					<Table dataSource={giftList} columns={columns} loading={loading} />
 				</div>
 			</div >
